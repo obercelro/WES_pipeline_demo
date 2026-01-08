@@ -35,13 +35,13 @@ I built this to simulate a full cancer genomics workflow, taking raw FASTQ files
 ### 1. Setup environment
 This pipeline uses mamba (or conda) to manage software versions.
 
-mamba env create -f environment.yaml
+mamba env create -f environment.yaml  
 conda activate wes_pipeline
 
 ### 2. Download data
 setup.sh fetches the Reference Genome (GRCh38) and a specific Tumor/Normal pair (Father/Daughter) from the 1000 Genomes Project. It includes checksum validation to ensure file integrity.
 
-chmod +x setup.sh
+chmod +x setup.sh  
 ./setup.sh
 
 ### 3. Run it!
@@ -49,6 +49,16 @@ Run the pipeline locally or on a cluster.
 
 # Run on a local machine with 4 cores
 snakemake --cores 4 --use-conda --conda-frontend conda
+
+### Alternative: Run with Docker
+If you don't want to install Conda/Mamba locally, you can run the entire pipeline inside a container.
+
+# 1. Build the image
+docker build -t wes-pipeline .
+
+# 2. Run the analysis
+# We mount the current directory ($(pwd)) to /pipeline inside the container
+docker run --rm -v $(pwd):/pipeline wes-pipeline snakemake --cores 4 --use-conda
 
 ## Outputs
 After a successful run, check these files:
@@ -66,3 +76,4 @@ After a successful run, check these files:
 - **config/config.yaml**: Configuration for file paths and run parameters.
 - **config/resources.yaml**: Hardware specifications (RAM/CPU) decoupled from the pipeline logic.
 - **envs/**: Isolated environment files for specific tools.
+- **Dockerfile**: Defines a containerized environment (Miniconda3) with all dependencies pre-installed. Allows the pipeline to run on any OS (Windows/Mac/Linux) without manual setup.

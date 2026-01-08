@@ -1,0 +1,21 @@
+# input data 
+units: "config/units.csv"
+samples: "config/samples.csv"
+
+# pipeline settings
+keep_intermediates: False # true keeps all BAMs (debugging mode)
+
+# reference genomes & databases
+ref:
+  genome: "data/refs/Homo_sapiens_assembly38.fasta"
+  intervals: "data/refs/intervals.bed"
+  known_variants: "data/refs/dbsnp.vcf.gz"
+  
+  # using dbsnp as placeholder for PoN/GnomAD
+  pon: "data/refs/dbsnp.vcf.gz" 
+  gnomad: "data/refs/dbsnp.vcf.gz"
+  
+  vep_cache: "data/refs/vep_cache/"
+
+# resource defaults
+resources: "config/resources.yaml"

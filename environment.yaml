@@ -1,0 +1,19 @@
+name: wes_pipeline
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - snakemake>=7.0
+  - python=3.9
+  - pandas
+  - bwa=0.7.17
+  - samtools=1.15
+  - gatk4=4.2.6.1
+  - fastp=0.23.2
+  - ensembl-vep=106.1
+  - multiqc=1.14
+  - picard=2.27.4
+  - vcf2maf
+  - tabix
+  - wget

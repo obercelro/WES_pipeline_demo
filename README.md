@@ -47,17 +47,17 @@ chmod +x setup.sh
 ### 3. Run it!
 Run the pipeline locally or on a cluster.
 
-# Run on a local machine with 4 cores
+#### Run on a local machine with 4 cores
 snakemake --cores 4 --use-conda --conda-frontend conda
 
 ### Alternative: Run with Docker
 If you don't want to install Conda/Mamba locally, you can run the entire pipeline inside a container.
 
-# 1. Build the image
+### 1. Build the image
 docker build -t wes-pipeline .
 
-# 2. Run the analysis
-# We mount the current directory ($(pwd)) to /pipeline inside the container
+### 2. Run the analysis
+#### We mount the current directory ($(pwd)) to /pipeline inside the container
 docker run --rm -v $(pwd):/pipeline wes-pipeline snakemake --cores 4 --use-conda
 
 ## Outputs

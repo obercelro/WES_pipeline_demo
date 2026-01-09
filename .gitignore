@@ -3,7 +3,6 @@ config/
 !config/config.yaml
 data/
 logs/
-results/*
-!results/plots
+results/qc/*
 !results/qc/multiqc_report.html
 scripts/analyze_vcf.py

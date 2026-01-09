@@ -1,5 +1,9 @@
-scripts/analyze_vcf.py
+.snakemake/
+config
+!config/config.yaml
 data/
+logs/
 results/
 !results/plots
 !results/qc
+scripts/analyze_vcf.py

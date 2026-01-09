@@ -1,0 +1,5 @@
+Sample	Picard_mqc-generalstats-picard-PERCENT_DUPLICATION	Samtools_mqc-generalstats-samtools-error_rate	Samtools_mqc-generalstats-samtools-non_primary_alignments	Samtools_mqc-generalstats-samtools-reads_mapped	Samtools_mqc-generalstats-samtools-reads_mapped_percent	Samtools_mqc-generalstats-samtools-reads_properly_paired_percent	Samtools_mqc-generalstats-samtools-reads_MQ0_percent	Samtools_mqc-generalstats-samtools-raw_total_sequences
+Normal_1000G		0.004017168	0.0	171775583.0	99.98820518628838	99.28404089584332	8.250181439194986	171795846.0
+Normal_1000G_L001	0.06597							
+Tumor_1000G		0.00706752	0.0	160423573.0	99.9842610253814	99.3517596694662	8.881522760409602	160448826.0
+Tumor_1000G_L001	0.074431							

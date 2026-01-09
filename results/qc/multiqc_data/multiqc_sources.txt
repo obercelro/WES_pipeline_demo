@@ -1,0 +1,5 @@
+Module	Section	Sample Name	Source
+Picard	DuplicationMetrics	Normal_1000G_L001	/home/visceria/projects/wes/results/qc/dedup/Normal_1000G.metrics.txt
+Picard	DuplicationMetrics	Tumor_1000G_L001	/home/visceria/projects/wes/results/qc/dedup/Tumor_1000G.metrics.txt
+Samtools	stats	Normal_1000G	/home/visceria/projects/wes/results/qc/bam/Normal_1000G.stats
+Samtools	stats	Tumor_1000G	/home/visceria/projects/wes/results/qc/bam/Tumor_1000G.stats

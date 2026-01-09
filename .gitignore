@@ -1,9 +1,9 @@
 .snakemake/
-config
+config/
 !config/config.yaml
 data/
 logs/
-results/
+results/*
 !results/plots
 !results/qc
 scripts/analyze_vcf.py

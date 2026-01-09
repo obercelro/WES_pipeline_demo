@@ -1,5 +1,0 @@
-#!/home/visceria/projects/wes/.snakemake/conda/842c8145ab30d9f34d8150d6349fb859_/bin/python2.7
-
-from idlelib.PyShell import main
-if __name__ == '__main__':
-    main()

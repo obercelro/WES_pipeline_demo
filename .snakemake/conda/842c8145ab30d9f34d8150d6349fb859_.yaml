@@ -1,7 +1,0 @@
-channels:
-  - bioconda
-  - conda-forge
-  - defaults
-dependencies:
-  - manta=1.6.0
-  - python=2.7

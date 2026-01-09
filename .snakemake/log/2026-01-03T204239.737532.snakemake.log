@@ -1,4 +1,0 @@
-Building DAG of jobs...
-WorkflowError:
-Failed to open source file /home/visceria/projects/wes/envs/vcf2maf.yaml
-FileNotFoundError: [Errno 2] No such file or directory: '/home/visceria/projects/wes/envs/vcf2maf.yaml'

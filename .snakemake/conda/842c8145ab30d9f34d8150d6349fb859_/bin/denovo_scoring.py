@@ -1,1 +1,0 @@
-../libexec/denovo_scoring.py

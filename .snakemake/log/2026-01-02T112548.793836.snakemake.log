@@ -1,0 +1,3 @@
+WorkflowError in file /home/visceria/projects/wes/Snakefile, line 7:
+Workflow defines configfile config/config.yaml but it is not present or accessible (full checked path: /home/visceria/projects/wes/config/config.yaml).
+  File "/home/visceria/projects/wes/Snakefile", line 7, in <module>

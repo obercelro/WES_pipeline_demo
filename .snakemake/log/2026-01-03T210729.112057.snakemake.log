@@ -1,0 +1,42 @@
+Building DAG of jobs...
+Creating conda environment envs/maf.yaml...
+Downloading and installing remote packages.
+Environment for /home/visceria/projects/wes/envs/maf.yaml created (location: .snakemake/conda/8b4568ebaa499745571931fd2e47dc06_)
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job        count
+-------  -------
+all            1
+vcf2maf        1
+total          2
+
+Select jobs to execute...
+
+[Sat Jan  3 21:07:38 2026]
+rule vcf2maf:
+    input: results/vcf/somatic/annotated/Tumor_1000G.somatic.ann.vcf.gz, data/refs/Homo_sapiens_assembly38.fasta
+    output: results/maf/Tumor_1000G.maf
+    jobid: 18
+    reason: Forced execution
+    wildcards: sample=Tumor_1000G
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/8b4568ebaa499745571931fd2e47dc06_
+[Sat Jan  3 21:07:47 2026]
+Finished job 18.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Sat Jan  3 21:07:47 2026]
+localrule all:
+    input: results/qc/multiqc_report.html, results/vcf/somatic/annotated/Tumor_1000G.somatic.ann.vcf.gz, results/vcf/germline/Normal_1000G.germline.vcf.gz, results/sv/manta/Tumor_1000G/results/variants/somaticSV.vcf.gz, results/maf/Tumor_1000G.maf
+    jobid: 0
+    reason: Input files updated by another job: results/maf/Tumor_1000G.maf
+    resources: tmpdir=/tmp
+
+[Sat Jan  3 21:07:47 2026]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2026-01-03T210729.112057.snakemake.log

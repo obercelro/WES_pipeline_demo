@@ -1,2 +1,5 @@
-scripts/analysis.R
 scripts/analyze_vcf.py
+data/
+results/
+!results/plots
+!results/qc

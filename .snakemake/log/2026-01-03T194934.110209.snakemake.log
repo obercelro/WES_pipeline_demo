@@ -1,0 +1,56 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+all                   1
+multiqc               1
+samtools_stats        2
+total                 4
+
+Select jobs to execute...
+
+[Sat Jan  3 19:49:35 2026]
+rule samtools_stats:
+    input: results/dedup/Normal_1000G.dedup.bam
+    output: results/qc/bam/Normal_1000G.stats
+    jobid: 9
+    reason: Missing output files: results/qc/bam/Normal_1000G.stats
+    wildcards: sample=Normal_1000G
+    resources: tmpdir=/tmp, mem_mb=1024, mem_mib=977
+
+
+[Sat Jan  3 19:49:35 2026]
+rule samtools_stats:
+    input: results/dedup/Tumor_1000G.dedup.bam
+    output: results/qc/bam/Tumor_1000G.stats
+    jobid: 10
+    reason: Missing output files: results/qc/bam/Tumor_1000G.stats
+    wildcards: sample=Tumor_1000G
+    resources: tmpdir=/tmp, mem_mb=1024, mem_mib=977
+
+[Sat Jan  3 19:51:57 2026]
+Finished job 10.
+1 of 4 steps (25%) done
+[Sat Jan  3 19:52:05 2026]
+Finished job 9.
+2 of 4 steps (50%) done
+Select jobs to execute...
+
+[Sat Jan  3 19:52:05 2026]
+rule multiqc:
+    input: results/qc/fastp/Normal_1000G_L001.json, results/qc/fastp/Tumor_1000G_L001.json, results/qc/dedup/Normal_1000G.metrics.txt, results/qc/dedup/Tumor_1000G.metrics.txt, results/qc/bam/Normal_1000G.stats, results/qc/bam/Tumor_1000G.stats
+    output: results/qc/multiqc_report.html
+    jobid: 1
+    reason: Input files updated by another job: results/qc/bam/Normal_1000G.stats, results/qc/bam/Tumor_1000G.stats; Set of input files has changed since last execution
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule multiqc in file /home/visceria/projects/wes/Snakefile, line 194:
+Job 1  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+results/qc/multiqc_report.html
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2026-01-03T194934.110209.snakemake.log

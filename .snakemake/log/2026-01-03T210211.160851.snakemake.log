@@ -1,0 +1,11 @@
+Building DAG of jobs...
+Creating conda environment environment.yaml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /home/visceria/projects/wes/environment.yaml:
+Command:
+mamba env create --quiet --file "/home/visceria/projects/wes/.snakemake/conda/31f33adeab17e4fa39dfc4fbd00ee77a_.yaml" --prefix "/home/visceria/projects/wes/.snakemake/conda/31f33adeab17e4fa39dfc4fbd00ee77a_"
+Output:
+error    libmamba Non-conda folder exists at prefix - aborting.
+critical libmamba Non-conda folder exists at prefix - aborting.
+

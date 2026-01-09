@@ -1,0 +1,15 @@
+#############################################
+#####   Pkg-Config file for libxcrypt   #####
+#############################################
+
+prefix=/home/visceria/projects/wes/.snakemake/conda/184134a0b3b9725167b2eabb3f93bd3f_
+exec_prefix=${prefix}
+
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libxcrypt
+Version: 4.4.36
+Description: Extended crypt library for DES, MD5, Blowfish and others
+Libs: -L${libdir} -lcrypt
+Cflags: -I${includedir}

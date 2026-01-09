@@ -1,0 +1,5 @@
+#!/home/visceria/projects/wes/.snakemake/conda/842c8145ab30d9f34d8150d6349fb859_/bin/python2.7
+import sys
+from lib2to3.main import main
+
+sys.exit(main("lib2to3.fixes"))

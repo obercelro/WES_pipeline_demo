@@ -1,0 +1,11 @@
+prefix=/home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_
+exec_prefix=/home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_
+libdir=/home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_/lib
+includedir=/home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_/include
+GSL_CBLAS_LIB=-lgslcblas
+
+Name: GSL
+Description: GNU Scientific Library
+Version: 2.5
+Libs: -L/home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_/lib -lgsl ${GSL_CBLAS_LIB} -lm -lcblas -lm
+Cflags: -I/home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_/include

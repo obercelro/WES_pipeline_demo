@@ -1,0 +1,3 @@
+patient_id,sample_id,type
+PATIENT_001,Normal_1000G,normal
+PATIENT_001,Tumor_1000G,tumor

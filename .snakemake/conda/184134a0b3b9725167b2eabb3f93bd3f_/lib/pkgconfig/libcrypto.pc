@@ -1,0 +1,12 @@
+prefix=/home/visceria/projects/wes/.snakemake/conda/184134a0b3b9725167b2eabb3f93bd3f_
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+enginesdir=${libdir}/engines-1.1
+
+Name: OpenSSL-libcrypto
+Description: OpenSSL cryptography library
+Version: 1.1.1w
+Libs: -L${libdir} -lcrypto
+Libs.private: -ldl -pthread 
+Cflags: -I${includedir}

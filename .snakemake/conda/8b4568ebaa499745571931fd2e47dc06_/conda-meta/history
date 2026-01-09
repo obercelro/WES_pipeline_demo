@@ -1,0 +1,41 @@
+==> 2026-01-03 21:07:38 <==
+# cmd: /home/visceria/.local/share/miniforge3/condabin/conda env create --quiet --file /home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_.yaml --prefix /home/visceria/projects/wes/.snakemake/conda/8b4568ebaa499745571931fd2e47dc06_
+# conda version: 25.11.0
++bioconda/linux-64::bcftools-1.9-h68d8f2e_9
++bioconda/linux-64::c-ares-1.11.0-h470a237_1
++bioconda/linux-64::htslib-1.9-ha228f0b_7
++bioconda/linux-64::libdeflate-1.0-h14c3975_1
++bioconda/linux-64::samtools-1.9-h10a08f8_12
++bioconda/noarch::vcf2maf-1.6.22-hdfd78af_2
++conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
++conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
++conda-forge/linux-64::bzip2-1.0.8-hda65f42_8
++conda-forge/linux-64::curl-7.71.1-he644dc0_8
++conda-forge/linux-64::gsl-2.5-h294904e_1
++conda-forge/linux-64::gzip-1.14-hb9d3cd8_0
++conda-forge/linux-64::krb5-1.17.2-h926e7f8_0
++conda-forge/linux-64::libblas-3.11.0-5_h4a7cf45_openblas
++conda-forge/linux-64::libcblas-3.11.0-5_h0358290_openblas
++conda-forge/linux-64::libcurl-7.71.1-hcdd3856_8
++conda-forge/linux-64::libedit-3.1.20191231-h46ee950_2
++conda-forge/linux-64::libev-4.33-hd590300_2
++conda-forge/linux-64::libgcc-15.2.0-he0feb66_16
++conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_16
++conda-forge/linux-64::libgfortran-15.2.0-h69a702a_16
++conda-forge/linux-64::libgfortran5-15.2.0-h68bc16d_16
++conda-forge/linux-64::libgomp-15.2.0-he0feb66_16
++conda-forge/linux-64::libnghttp2-1.41.0-hab1572f_1
++conda-forge/linux-64::libopenblas-0.3.30-pthreads_h94d23a6_4
++conda-forge/linux-64::libssh2-1.10.0-haa6b8db_3
++conda-forge/linux-64::libstdcxx-15.2.0-h934c35e_16
++conda-forge/linux-64::libstdcxx-ng-15.2.0-hdf11a46_16
++conda-forge/linux-64::libxcrypt-4.4.36-hd590300_1
++conda-forge/linux-64::libzlib-1.2.13-h4ab18f5_6
++conda-forge/linux-64::ncurses-6.1-hf484d3e_1002
++conda-forge/linux-64::openssl-1.1.1w-hd590300_0
++conda-forge/linux-64::perl-5.32.1-7_hd590300_perl5
++conda-forge/linux-64::tk-8.6.13-noxft_h4845f30_101
++conda-forge/linux-64::xz-5.2.6-h166bdaf_0
++conda-forge/linux-64::zlib-1.2.13-h4ab18f5_6
++conda-forge/noarch::ca-certificates-2025.11.12-hbd8a1cb_0
+# update specs: ['vcf2maf', 'gzip', 'samtools']

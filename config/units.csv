@@ -1,3 +1,0 @@
-sample_id,lane,fastq_1,fastq_2
-Normal_1000G,L001,data/fastq/Normal_R1.fastq.gz,data/fastq/Normal_R2.fastq.gz
-Tumor_1000G,L001,data/fastq/Tumor_R1.fastq.gz,data/fastq/Tumor_R2.fastq.gz

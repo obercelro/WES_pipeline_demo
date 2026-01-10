@@ -1,4 +1,4 @@
-import pandas as 
+import pandas as pd
 import gzip
 import sys
 
@@ -23,12 +23,12 @@ def parse_vcf_detailed(vcf_path):
                 'filter_status' : cols[6],
                 'info_str' : cols[7],
                 'format_str' : cols[8],
-                'tumor_sample' : cols[9] # assumes tumor is first sample col
+                'tumor_sample' : cols[9], # assumes tumor is first sample col
                 'normal_sample' : cols[10] # assumes normal is second sample col
             }
             
             # parse INFO column 
-            info_dict = {x.split("=")[0]: x.split("=")[1] for x in info_str.split(";") if "=" in x}
+            info_dict = {x.split("=")[0]: x.split("=")[1] for x in variant_info['info_str'].split(";") if "=" in x}
             gene = "Intergenic"
             impact = "MODIFIER"
             consequence = "unknown"
@@ -44,7 +44,7 @@ def parse_vcf_detailed(vcf_path):
                     protein_change = first_ann[10] # HGVS.p
 
             # parse FORMAT column
-            fmt_keys = format_str.split(":")
+            fmt_keys = variant_info['format_str'].split(":")
             tumor_vals = variant_info['tumor_sample'].split(":")
             normal_vals = variant_info['normal_sample'].split(":")
             

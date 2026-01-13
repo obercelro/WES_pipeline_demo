@@ -2,96 +2,117 @@ import pandas as pd
 import gzip
 import sys
 
-def parse_vcf_detailed(vcf_path):
-    print(f"Parsing {vcf_path}...")
+def parse_vcf(vcf_path):
+    print(f"parsing {vcf_path}...")
     variants = []
+    csq_fields = {}
+    t_idx = -1
+    n_idx = -1
     
     with gzip.open(vcf_path, "rt") as f:
         for line in f:
+            if line.startswith("#CHROM"):
+                header = line.strip().split("\t")
+                # you can dynamically pass in sample names here if you want, otherwise skip the CHROM parsing and just pass in the correct column indexes for your tumor sample and normal sample
+                try:
+                    t_idx = header.index("Tumor_1000G")
+                    n_idx = header.index("Normal_1000G")
+                    print(f"detected sample columns: tumor at {t_idx}, normal at {n_idx}")
+                except ValueError:
+                    print("error: could not find sample IDs 'Tumor_1000G' or 'Normal_1000G' in header.")
+                    print(f"header: {header}")
+                    sys.exit(1)
+                continue
+
+            if line.startswith("##INFO=<ID=CSQ"):
+                try:
+                    format_str = line.split("Format:")[1].strip().strip('">').strip("'")
+                    headers = format_str.split("|")
+                    csq_fields = {name: i for i, name in enumerate(headers)}
+                except:
+                    pass
+                continue
+
             if line.startswith("#"):
                 continue
             
             cols = line.strip().split("\t")
             
-            # basic variant info
-            variant_info = {
-                'chrom' : cols[0],
-                'pos' : cols[1],
-                'ref' : cols[3],
-                'alt' : cols[4],
-                'qual' : cols[5],
-                'filter_status' : cols[6],
-                'info_str' : cols[7],
-                'format_str' : cols[8],
-                'tumor_sample' : cols[9], # assumes tumor is first sample col
-                'normal_sample' : cols[10] # assumes normal is second sample col
-            }
+            info_str = cols[7]
+            info_dict = {}
+            for x in info_str.split(";"):
+                if "=" in x:
+                    key, val = x.split("=", 1)
+                    info_dict[key] = val
             
-            # parse INFO column 
-            info_dict = {x.split("=")[0]: x.split("=")[1] for x in variant_info['info_str'].split(";") if "=" in x}
-            gene = "Intergenic"
+            gene = "."
             impact = "MODIFIER"
-            consequence = "unknown"
+            consequence = "."
             protein_change = "."
             
-            if "ANN" in info_dict:
-                ann_list = info_dict["ANN"].split(",")
-                first_ann = ann_list[0].split("|")
-                if len(first_ann) > 10:
-                    consequence = first_ann[1]
-                    impact = first_ann[2]
-                    gene = first_ann[3]
-                    protein_change = first_ann[10] # HGVS.p
-
-            # parse FORMAT column
-            fmt_keys = variant_info['format_str'].split(":")
-            tumor_vals = variant_info['tumor_sample'].split(":")
-            normal_vals = variant_info['normal_sample'].split(":")
+            tag = "CSQ" if "CSQ" in info_dict else ("ANN" if "ANN" in info_dict else None)
             
-            fmt_dict_tumor = dict(zip(fmt_keys, tumor_vals))
-            fmt_dict_normal = dict(zip(fmt_keys, normal_vals))
-
-            # extract allele depth (AD) -> ref_reads, alt_reads
-            try:
-                t_ref_count, t_alt_count = map(int, fmt_dict_tumor.get("AD", "0,0").split(","))
-                n_ref_count, n_alt_count = map(int, fmt_dict_normal.get("AD", "0,0").split(","))
+            if tag:
+                ann_list = info_dict[tag].split(",")
+                best_rank = 0
+                rank_map = {"HIGH": 4, "MODERATE": 3, "LOW": 2, "MODIFIER": 1}
                 
-                # calculate variant allele frequency (VAF)
-                t_vaf = t_alt_count / (t_ref_count + t_alt_count) if (t_ref_count + t_alt_count) > 0 else 0
-                n_vaf = n_alt_count / (n_ref_count + n_alt_count) if (n_ref_count + n_alt_count) > 0 else 0
+                for ann in ann_list:
+                    fields = ann.split("|")
+                    try:
+                        curr_impact = fields[csq_fields.get('IMPACT', 2)]
+                        curr_cons = fields[csq_fields.get('Consequence', 1)]
+                        curr_gene = fields[csq_fields.get('SYMBOL', 3)]
+                        curr_prot = fields[csq_fields.get('HGVSp', 10)] if 'HGVSp' in csq_fields else "."
+                    except IndexError:
+                        continue 
+
+                    rank = rank_map.get(curr_impact, 0)
+                    if rank > best_rank:
+                        best_rank = rank
+                        impact = curr_impact
+                        consequence = curr_cons
+                        gene = curr_gene
+                        protein_change = curr_prot
+
+            format_str = cols[8]
+            tumor_sample = cols[t_idx]
+            normal_sample = cols[n_idx]
+            
+            fmt_keys = format_str.split(":")
+            fmt_tumor = dict(zip(fmt_keys, tumor_sample.split(":")))
+            fmt_normal = dict(zip(fmt_keys, normal_sample.split(":")))
+
+            try:
+                t_ref, t_alt = map(int, fmt_tumor.get("AD", "0,0").split(","))
+                t_depth = t_ref + t_alt
+                t_vaf = t_alt / t_depth if t_depth > 0 else 0
             except ValueError:
                 t_vaf = 0
-                n_vaf = 0
 
             variants.append({
-                "Chrom": variant_info['chrom'],
-                "Pos": variant_info['pos'],
-                "Ref": variant_info['ref'],
-                "Alt": variant_info['alt'],
                 "Gene": gene,
-                "Consequence": consequence,
                 "Impact": impact,
+                "Consequence": consequence,
                 "Protein_Change": protein_change,
                 "Tumor_VAF": round(t_vaf, 3),
-                "Normal_VAF": round(n_vaf, 3),
-                "Depth_Tumor": t_ref_count + t_alt_count,
-                "Filter": variant_info['filter_status']
+                "Filter": cols[6]
             })
             
     return pd.DataFrame(variants)
 
 # ----------
 vcf_file = "results/vcf/somatic/annotated/Tumor_1000G.somatic.ann.vcf.gz"
-df = parse_vcf_detailed(vcf_file)
+df = parse_vcf(vcf_file)
 
 pass_df = df[df["Filter"] == "PASS"]
+high = pass_df[pass_df["Impact"].isin(["HIGH", "MODERATE"])]
 
-print(f"Total Variants Detected: {len(df)}")
-print(f"High Quality (PASS) Variants: {len(pass_df)}")
-
-high_impact = pass_df[pass_df["Impact"].isin(["HIGH", "MODERATE"])]
-print("\n--- Top High Impact Mutations ---")
-print(high_impact[["Gene", "Consequence", "Protein_Change", "Tumor_VAF"]].head(10).to_string(index=False))
+print(f"\n--- Top High Impact Mutations (Count: {len(high)}) ---")
+if not high.empty:
+    print(high[["Gene", "Consequence", "Protein_Change", "Tumor_VAF"]]
+          .sort_values("Tumor_VAF", ascending=False)
+          .head(15)
+          .to_string(index=False))
 
 pass_df.to_csv("results/clinical_report.csv", index=False)
-print("\nFull clinical report saved to: results/clinical_report.csv")
